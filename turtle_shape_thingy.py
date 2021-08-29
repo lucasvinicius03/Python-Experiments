@@ -38,21 +38,21 @@ def calculate_triangle(angle, opposite=None, adjacent=None, hypotenuse=None):
         b = math.sqrt(a**2 - c**2)
         return a, b, c
 
-# size_of_screen = int(input('Enter screen size: '))
 size_of_screen = 600
+sides = [size_of_screen-40, size_of_screen-40, size_of_screen-40, size_of_screen-40]
+internal_l1 = size_of_screen-40
 
 screen = turtle.Screen()
+t1 = turtle.Turtle()
+
 screen.title('SQUARE THINGY')
 screen.setup(width=size_of_screen, height=size_of_screen)
 screen.colormode(255)
-t1 = turtle.Turtle()
+
 t1.speed(8)
 t1.pu()
 t1.setpos((-(size_of_screen)/2)+20,(-(size_of_screen)/2)+20)
 t1.pd()
-
-sides = [size_of_screen-40, size_of_screen-40, size_of_screen-40, size_of_screen-40]
-internal_l1 = size_of_screen-40
 
 while sides[3] > 10:
     draw_square(sides)
