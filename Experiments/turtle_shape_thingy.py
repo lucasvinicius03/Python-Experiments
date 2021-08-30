@@ -11,13 +11,15 @@ def draw_square(sides):
         t1.left(90)
     t1.end_fill()
 
-def calculate_new_square(old_sides, internal_l1):
-    triangle1 = calculate_triangle(5, adjacent=internal_l1)
-    triangle2 = calculate_triangle(5, adjacent=old_sides[1]-triangle1[2])
-    triangle3 = calculate_triangle(5, adjacent=old_sides[2]-triangle2[2])
-    triangle4 = calculate_triangle(5, hypotenuse=old_sides[3]-triangle3[2])
-    internal_l1 = triangle1[0] - triangle4[2]
-    return [triangle1[0], triangle2[0], triangle3[0], triangle4[1]], internal_l1
+def calculate_next_layer(old_sides, internal_l1):
+    triangles = [calculate_triangle(angle, adjacent=internal_l1)]
+    for side in old_sides[1:-1]:
+        triangles.append(calculate_triangle(angle, adjacent=side-triangles[-1][2]))
+    triangles.append(calculate_triangle(angle, hypotenuse=old_sides[-1]-triangles[-1][2]))
+    internal_l1 = triangles[0][0] - triangles[-1][2]
+    new_sides = [triangle[0] for triangle in triangles[:-1]]
+    new_sides.append(triangles[-1][1])
+    return new_sides, internal_l1
 
 def calculate_triangle(angle, opposite=None, adjacent=None, hypotenuse=None):
     sin = math.sin(math.radians(angle))
@@ -41,6 +43,7 @@ def calculate_triangle(angle, opposite=None, adjacent=None, hypotenuse=None):
 size_of_screen = 600
 sides = [size_of_screen-40, size_of_screen-40, size_of_screen-40, size_of_screen-40]
 internal_l1 = size_of_screen-40
+angle = 5
 
 screen = turtle.Screen()
 t1 = turtle.Turtle()
@@ -56,6 +59,6 @@ t1.pd()
 
 while sides[3] > 10:
     draw_square(sides)
-    sides, internal_l1 = calculate_new_square(sides, internal_l1)
-    t1.left(5)
+    sides, internal_l1 = calculate_next_layer(sides, internal_l1)
+    t1.left(angle)
 screen.exitonclick()
