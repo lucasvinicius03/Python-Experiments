@@ -6,6 +6,7 @@ def draw_next_layer(sides):
     t1.fillcolor(random.randint(0,255),random.randint(0,255),random.randint(0,255))
     t1.begin_fill()
     for side in sides:
+        print(t1.pos())
         t1.forward(side)
         t1.left(360/len(sides))
     t1.end_fill()
@@ -31,11 +32,19 @@ def calculate_triangle(angle, adjacent=None, hypotenuse=None):
     c = math.sqrt(a**2 - b**2)
     return a, b, c
 
+def calculate_polygon(height, num_sides):
+    side = height * math.sin(math.pi/num_sides)
+    return side
+
 size_of_screen = 600
+height=size_of_screen-40
 num_sides = 4
-sides = [size_of_screen-40 for i in range(num_sides)]
-internal_l1 = size_of_screen-40
+inradius = (height/2) * math.cos(math.pi/num_sides)
 angle = 5
+side = calculate_polygon(height, num_sides)
+sides = [side for i in range(num_sides)]
+internal_l1 = side
+
 
 screen = turtle.Screen()
 t1 = turtle.Turtle()
@@ -47,10 +56,13 @@ screen.colormode(255)
 t1.speed(8)
 t1.pencolor(0, 0, 0)
 t1.pu()
-t1.setpos((-(size_of_screen)/2)+20,(-(size_of_screen)/2)+20)
+if num_sides % 2 == 0:
+    t1.setpos(-side/2,-(inradius))
+else:
+    t1.setpos(-side/2, -((inradius+(height/2))/2))
 t1.pd()
 
-while sides[3] > 10:
+while sides[-1] > 10:
     draw_next_layer(sides)
     sides, internal_l1 = calculate_next_layer(sides, internal_l1)
     t1.left(angle)
