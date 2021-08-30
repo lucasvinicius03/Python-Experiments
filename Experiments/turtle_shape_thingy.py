@@ -40,7 +40,7 @@ angle = 5
 screen = turtle.Screen()
 t1 = turtle.Turtle()
 
-screen.title('SQUARE THINGY')
+screen.title('SHAPE THINGY')
 screen.setup(width=size_of_screen, height=size_of_screen)
 screen.colormode(255)
 
