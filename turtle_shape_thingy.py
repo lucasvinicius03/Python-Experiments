@@ -9,9 +9,7 @@ def draw_next_layer(distance=None, old_points=None):
     if distance:
         percent = distance/100*offset
         for x in range(num_sides):
-            t1.forward(percent)
-            new_points.append(t1.pos())
-            t1.forward(distance-percent)
+            walk(distance, percent, new_points)
             t1.left(360/num_sides)
     elif old_points:
         t1.goto(old_points[0])
@@ -19,9 +17,7 @@ def draw_next_layer(distance=None, old_points=None):
             t1.setheading(t1.towards(x))
             distance = t1.distance(x)
             percent = distance/100*offset
-            t1.forward(percent)
-            new_points.append(t1.pos())
-            t1.forward(distance-percent)
+            walk(distance, percent, new_points)
     t1.end_fill()
     new_points.append(new_points[0])
     return new_points, distance
@@ -29,6 +25,11 @@ def draw_next_layer(distance=None, old_points=None):
 def calculate_polygon(height, num_sides):
     side = height * math.sin(math.pi/num_sides)
     return side
+
+def walk(distance, percent, points):
+    t1.forward(percent)
+    points.append(t1.pos())
+    t1.forward(distance-percent)
 
 size_of_screen = 600
 height=size_of_screen-40
