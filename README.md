@@ -1,7 +1,8 @@
-# Turtle-Experiments
-Some random experiments I'm making while learning how to use python's Turtle and Math modules.
+# Python-Experiments
+Some random experiments I'm making while learning how to use python's modules.
 
 
-## Experiments:
+
+## Turtle Module:
 ### turtle-shape-thingy.py
-Draws a shape and continuously draws inside it with a configurable degree offset.
+Draws a shape and continuously draws inside it with a configurable offset.
