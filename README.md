@@ -10,5 +10,4 @@ A simple python file that I made for a friend. It draws balloons on the screen a
 #### IMPORTANT **(if you're going to run this on a phone make sure to: decrease the font size to 15, set the balloon position addition to 50 instead of 10, set the writer(text, pos) pos variable to (0,60) and (0,-60), set the sleep function to 0.1 instead of 0.03 and the t1.pensize() to 3)**
 
 ### gravity.py
-A ball but with ***physics***. Probably not very accurate. I'm not a physicist.  
-I wonder if I could make it bounce...
+A ball but with ***physics***. Probably not very accurate. I'm not a physicist.
