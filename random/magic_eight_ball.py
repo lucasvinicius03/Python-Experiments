@@ -33,11 +33,11 @@ loading = cycle(('▲', '►', '▼', '◄'))
 
 while True:
     clear()
-    random.seed(input('Ask me a yes/no question: '))
-    clear()
+    if input('Would you like to ask the magic 8-ball? (y/n)? ').lower()[0] == 'n':
+        break
+    print('Think of a yes-no question')
     for x in range(random.randint(4, 10)):
         print('Thinking ' + next(loading), end='\r')
         sleep(0.5)
     print(ball[random.randint(0, len(ball)-1)])
-    if input('\nWould you like to try again (y/n)? ').lower()[0] == 'n':
-        break
+    input()
