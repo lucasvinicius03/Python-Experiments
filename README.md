@@ -1,6 +1,12 @@
 # Python-Experiments
 Some random experiments I'm making while learning how to use python's modules.
 
+## Python (general python):
+### time_calculator.py
+Can sum and subtract different time units.
+To use it enter an equation following the 'valueunitoperation' pattern. Valid units (h: hour, m: minute, s: second), valid operations (+: sum, -: difference)
+e.g. 12h+43s-45m-2h; 4h; 5m+3h; 2s...
+
 ## Turtle Module:
 ### turtle-shape-thingy.py
 Draws a shape and continuously draws inside it with a configurable offset.
