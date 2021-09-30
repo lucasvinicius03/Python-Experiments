@@ -3,11 +3,11 @@ Some random experiments I'm making while learning how to use python's modules.
 
 ## Python (general python):
 ### time_calculator.py
-Can sum and subtract different time units.
-To use it pass an equation following the 'valueunitoperation' pattern to the time_calculator() function.
-It will return a tuple containing (Y, D, H, M, S)
-Optionally you can pass True to the param prettify. Doing so will change the output to ('YyDdMmHhSs', 'DdMmHhSs', 'MmHhSs', 'HhSs', 'Ss')
-Valid units (y: year, d: day, h: hour, m: minute, s: second), valid operations (+: sum, -: difference)
+Can sum and subtract different time units.  
+To use it pass an equation following the 'valueunitoperation' pattern to the time_calculator() function.  
+It will return a tuple containing (Y, D, H, M, S)  
+Optionally you can pass True to the param prettify. Doing so will change the output to ('YyDdMmHhSs', 'DdMmHhSs', 'MmHhSs', 'HhSs', 'Ss')  
+Valid units (y: year, d: day, h: hour, m: minute, s: second), valid operations (+: sum, -: difference)  
 e.g. 12d+43s-45m-2h; 4y; 5m+3h; 2s...
 
 ## Turtle Module:
