@@ -56,4 +56,4 @@ def time_calculator(time, prettify = False):
 if __name__ == '__main__':
     time = input('Enter an equation that follows the \'valueunitoperation\' pattern\n e.g. 12d+43s-45m-2h\n').lower()
     years, days, hours, minutes, total_seconds = time_calculator(time, True)
-    print(f'\nThis is equal to ' + years + ' or ' + days + ' or ' + hours + ' or ' + minutes + ' or ' + str(total_seconds)+'s')
+    print(f'\nThis is equal to ' + years + ' or ' + days + ' or ' + hours + ' or ' + minutes + ' or ' + total_seconds)
