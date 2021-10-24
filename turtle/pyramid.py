@@ -1,7 +1,6 @@
 import turtle
 import math
 from time import sleep
-from typing import AsyncGenerator
 
 def calculate_points(pos, r1, r2, angles):
     points = []
