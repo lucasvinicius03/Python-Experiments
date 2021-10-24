@@ -6,7 +6,7 @@ def calculate_points(pos, r1, r2, angles):
     points = []
     for a in angles:
         x = pos[0] + (r1 * math.cos(math.radians(a)))
-        y = pos[1] + (r2* math.sin(math.radians(a)))
+        y = pos[1] + (r2 * math.sin(math.radians(a)))
         points.append((x, y))
     return points
 
