@@ -65,6 +65,35 @@ class Screen3D():
     def lines(self):
         return self.__lines
 
+    def point_translate(self, point: str, translation_x: float=0, translation_y: float=0, translation_z: float=0):
+        x, y, z = self.__points[point]
+        x += translation_x
+        y += translation_y
+        z += translation_z
+        self.__points[point] = (x, y, z)
+
+    def object_rotate(self, obj: str, rotation_x: float=0, rotation_y: float=0, rotation_z: float=0):
+        origin_x = sum([self.__points[point][0] for point in obj])/len(obj)
+        origin_y = sum(self.__points[point][1] for point in obj)/len(obj)
+        origin_z = sum(self.__points[point][2] for point in obj)/len(obj)
+        for point in obj:
+            self.point_translate(point, -origin_x, -origin_y, -origin_z)
+            x, y, z = self.__points[point]
+            sin_x, cos_x = sin(radians(rotation_x)), cos(radians(rotation_x))
+            sin_y, cos_y = sin(radians(rotation_y)), cos(radians(rotation_y))
+            sin_z, cos_z = sin(radians(rotation_z)), cos(radians(rotation_z))
+            if rotation_x:
+                y = (y * cos_x) - (z * sin_x)
+                z = (y * sin_x) + (z * cos_x)
+            if rotation_y:
+                x = (x * cos_y) + (z * sin_y)
+                z = (z * cos_y) - (x * sin_y)
+            if rotation_z:
+                x = (x * cos_z) - (y * sin_z)
+                y = (x * sin_z) + (y * cos_z)
+            self.__points[point] = (x, y, z)
+            self.point_translate(point, origin_x, origin_y, origin_z)
+
     def calc_projection(self, point_3d: tuple[float, float, float]) -> tuple[float, float]:
         x = (point_3d[0] - self.__cam_coords[0]) * (self.__focal_length / ((point_3d[2]/10) - self.__cam_coords[2]))
         y = (point_3d[1] - self.__cam_coords[1]) * (self.__focal_length / ((point_3d[2]/10) - self.__cam_coords[2]))
@@ -96,18 +125,24 @@ if __name__ == '__main__':
     screen3d.lines_add('ab', 'bc', 'cd', 'da')
     screen3d.lines_add('ef', 'fg', 'gh', 'he')
     screen3d.lines_add('ae', 'bf', 'cg', 'dh')
+
     while True:
-        for x in range(30):
-            sleep(.03)
-            screen3d.draw_frame()
-            screen3d.move_cam(10, 0, 0)
-        for x in range(60):
-            view -= 1
-            sleep(.03)
-            screen3d.draw_frame()
-            screen3d.move_cam(-10, 0, 0)
-        for x in range(30):
-            view += 1
-            sleep(.03)
-            screen3d.draw_frame()
-            screen3d.move_cam(10, 0, 0)
+        screen3d.draw_frame()
+        screen3d.object_rotate('abcdefgh', 5, 5)
+        sleep(.03)
+
+    # while True:
+    #     for x in range(30):
+    #         sleep(.03)
+    #         screen3d.draw_frame()
+    #         screen3d.move_cam(10, 0, 0)
+    #     for x in range(60):
+    #         view -= 1
+    #         sleep(.03)
+    #         screen3d.draw_frame()
+    #         screen3d.move_cam(-10, 0, 0)
+    #     for x in range(30):
+    #         view += 1
+    #         sleep(.03)
+    #         screen3d.draw_frame()
+    #         screen3d.move_cam(10, 0, 0)
