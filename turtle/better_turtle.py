@@ -155,7 +155,7 @@ if __name__ == '__main__':
     screen3d.points_add(i=(400,0,1000), j=(800, 0, 1000), k=(800, 0, 1400), l=(400, 0, 1400))
     screen3d.lines_add('ij', 'jk', 'kl', 'li')
 
-    test = 0
+    test = 1
     if test == 0:
         screen3d.object_rotate('abcdefgh', (random.randint(0,360), random.randint(0,360), random.randint(0,360)))
         screen3d.object_rotate('ijkl', (random.randint(0,360), random.randint(0,360), random.randint(0,360)))
@@ -171,14 +171,12 @@ if __name__ == '__main__':
             for x in range(30):
                 sleep(.03)
                 screen3d.draw_frame()
-                screen3d.move_cam((10,0,0))
+                screen3d.move_cam((10,5,0))
             for x in range(60):
-                view -= 1
                 sleep(.03)
                 screen3d.draw_frame()
-                screen3d.move_cam((-10,0,0))
+                screen3d.move_cam((-10,-5,0))
             for x in range(30):
-                view += 1
                 sleep(.03)
                 screen3d.draw_frame()
-                screen3d.move_cam((10,0,0))
+                screen3d.move_cam((10,5,0))
