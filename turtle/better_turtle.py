@@ -33,6 +33,7 @@ class Screen3D():
         self.__orig_points = {'cam': cam_coords}
         self.__lines = []
         self.__turtle = BetterTurtle()
+        self.__turtle.hideturtle()
     
     def mainloop(self):
         self.__screen.mainloop()
@@ -99,21 +100,42 @@ class Screen3D():
             self.__points[point] = self.point_translate((x, y, z), origin)
 
     def calc_projection(self, point_3d: tuple[float, float, float]) -> tuple[float, float]:
-        x = (point_3d[0] - self.__points['cam'][0]) * (self.__focal_length / ((point_3d[2]/10) - self.__points['cam'][2]))
-        y = (point_3d[1] - self.__points['cam'][1]) * (self.__focal_length / ((point_3d[2]/10) - self.__points['cam'][2]))
+        x = (point_3d[0] - self.__points['cam'][0]) * (self.__focal_length / (point_3d[2] - self.__points['cam'][2]))
+        y = (point_3d[1] - self.__points['cam'][1]) * (self.__focal_length / (point_3d[2] - self.__points['cam'][2]))
         return (x, y)
 
     def draw_frame(self):
         self.__screen.tracer(0)
-        self.__turtle.clear()
+        for t in turtle.turtles():
+            if isinstance(t, BetterTurtle):
+                t.clear()
         for x in self.__lines:
             self.__turtle.jump(self.calc_projection(self.__points[x[0]]))
             self.__turtle.goto(self.calc_projection(self.__points[x[1]]))
         self.__screen.tracer(1)
+    def draw_frame_sync(self, *steps):
+        for t in turtle.turtles():
+            if isinstance(t, BetterTurtle):
+                t.clear()
+        for lines in steps:
+            self.__screen.tracer(0)
+            tur = {line:{'t':BetterTurtle()} for line in lines}
+            for line in lines:
+                tur[line]['t'].jump(self.calc_projection(self.__points[line[0]]))
+                tur[line]['t'].hideturtle()
+                tur[line]['t'].setheading(tur[line]['t'].towards(self.calc_projection(self.__points[line[1]])))
+                tur[line]['m'] = tur[line]['t'].distance(self.calc_projection(self.__points[line[1]]))*0.01
+            for x in range(100):
+                for line in lines:
+                    tur[line]['t'].forward(tur[line]['m'])
+                    self.__screen.update()
+            self.__screen.tracer(1)
+        
+
 
 if __name__ == '__main__':
-    view = 40
-    screen3d = Screen3D(view, (0,0,0))
+    import random
+    screen3d = Screen3D(500, (0,0,250))
     point0 = (-125, -125, 1000)
     lengthx = 500
     lengthy = 500
@@ -135,6 +157,10 @@ if __name__ == '__main__':
 
     test = 0
     if test == 0:
+        screen3d.object_rotate('abcdefgh', (random.randint(0,360), random.randint(0,360), random.randint(0,360)))
+        screen3d.object_rotate('ijkl', (random.randint(0,360), random.randint(0,360), random.randint(0,360)))
+        screen3d.draw_frame_sync(('ab', 'ad', 'ae', 'ij', 'il'), ('bc', 'bf', 'dc', 'dh', 'ef', 'eh', 'jk', 'lk'), ('cg', 'fg', 'hg'))
+        sleep(.5)
         while True:
             screen3d.draw_frame()
             screen3d.object_rotate('abcdefgh', (5,5,5))
