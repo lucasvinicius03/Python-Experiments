@@ -19,6 +19,7 @@ def draw_next_layer(distance=None, old_points=None):
             walk(distance, new_points)
     t1.end_fill()
     new_points.append(new_points[0])
+    screen.update()
     return new_points, distance
 
 def calculate_polygon(height, num_sides):
@@ -33,7 +34,7 @@ def walk(distance, points):
 
 size_of_screen = 600
 height=size_of_screen-40
-num_sides = 4
+num_sides = 10
 inradius = (height/2) * math.cos(math.pi/num_sides)
 offset= 10
 side = calculate_polygon(height, num_sides)
@@ -45,7 +46,8 @@ screen.title('SHAPE THINGY')
 screen.setup(width=size_of_screen, height=size_of_screen)
 screen.colormode(255)
 
-t1.speed(8)
+t1.speed(0)
+screen.tracer(0)
 t1.pencolor(0, 0, 0)
 t1.pu()
 if num_sides % 2 == 0:
